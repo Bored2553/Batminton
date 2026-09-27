@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BADMINTON CYBER-NEXUS 2099 | ศูนย์การเรียนรู้แบดมินตันแห่งอนาคต</title>
+    <!-- Google Fonts: Orbitron & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050811;
+            --card-bg: rgba(12, 19, 36, 0.85);
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff0055;
+            --neon-gold: #ffe600;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(0, 243, 255, 0.3);
+            --font-head: 'Orbitron', sans-serif;
+            --font-body: 'Kanit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 85, 0.05) 0%, transparent 40%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* HEADER & CYBER NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 8, 17, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .brand-logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo span {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-family: var(--font-head);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            border-color: var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* MAIN CONTENT VIEWS ARCHITECTURE */
+        main {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            min-height: 80vh;
+        }
+
+        .view-panel {
+            display: none;
+            animation: fadeInHUD 0.5s ease-out forwards;
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeInHUD {
+            from { opacity: 0; transform: translateY(15px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HUD PANEL COMPONENT */
+        .cyber-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .cyber-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20px;
+            width: 60px;
+            height: 3px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .panel-title {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-cyan), transparent);
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        /* DASHBOARD HUD METRICS */
+        .hud-metric-box {
+            background: rgba(0, 243, 255, 0.03);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .hud-metric-value {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .hud-metric-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* INTERACTIVE COURT HUD DIAGRAM */
+        .court-diagram {
+            width: 100%;
+            height: 320px;
+            background: #092019;
+            border: 3px solid var(--neon-cyan);
+            border-radius: 8px;
+            position: relative;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2) inset;
+        }
+
+        .court-net {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--neon-pink);
+            box-shadow: 0 0 12px var(--neon-pink);
+            transform: translateX(-50%);
+        }
+
+        .court-hotspot {
+            position: absolute;
+            padding: 8px 12px;
+            background: rgba(5, 8, 17, 0.9);
+            border: 1px solid var(--neon-gold);
+            color: var(--neon-gold);
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .court-hotspot:hover {
+            background: var(--neon-gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-gold);
+        }
+
+        /* RACKET CONFIGURATOR LAB */
+        .config-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+        }
+
+        .cyber-select, .cyber-range {
+            width: 100%;
+            padding: 10px;
+            background: #0b1329;
+            border: 1px solid var(--neon-cyan);
+            color: #fff;
+            border-radius: 6px;
+            font-family: var(--font-body);
+        }
+
+        .btn-cyber {
+            font-family: var(--font-head);
+            background: linear-gradient(135deg, var(--neon-cyan), #0077ff);
+            color: #000;
+            font-weight: 700;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-cyber:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.7);
+        }
+
+        /* TIMELINE HUD */
+        .timeline-matrix {
+            border-left: 2px solid var(--neon-cyan);
+            padding-left: 1.5rem;
+            margin-left: 1rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.1rem;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .timeline-year {
+            font-family: var(--font-head);
+            color: var(--neon-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* QUIZ MODULE SYSTEM */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 6px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.08);
+        }
+
+        /* IMAGES STYLING */
+        .cyber-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-glow);
+            margin-bottom: 1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-family: var(--font-head);
+            font-size: 0.85rem;
+            background: rgba(5, 8, 17, 0.98);
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .mobile-toggle { display: block; }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 8, 17, 0.98);
+                padding: 1rem;
+                border-bottom: 2px solid var(--neon-cyan);
+            }
+            .nav-menu.open { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="#dashboard" class="brand-logo" onclick="switchTab('dashboard')">
+                <span>BADMINTON</span> NEXUS-2099
+            </a>
+            <button class="mobile-toggle" onclick="toggleMobileNav()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a class="nav-link active" onclick="switchTab('dashboard')">แดชบอร์ด</a></li>
+                <li><a class="nav-link" onclick="switchTab('history')">ประวัติศาสตร์</a></li>
+                <li><a class="nav-link" onclick="switchTab('rules')">กติกา & สนาม</a></li>
+                <li><a class="nav-link" onclick="switchTab('equipment')">ห้องแล็บอุปกรณ์</a></li>
+                <li><a class="nav-link" onclick="switchTab('physics')">ฟิสิกส์ & เทคนิค</a></li>
+                <li><a class="nav-link" onclick="switchTab('quiz')">ควิซ & อ้างอิง</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main>
+
+        <!-- VIEW 1: DASHBOARD -->
+        <section id="dashboard" class="view-panel active">
+            <div class="cyber-panel">
+                <h2 class="panel-title">ศูนย์ข้อมูลแบดมินตันอนาคต (Cyber Control Center)</h2>
+                <div class="grid-3">
+                    <div class="hud-metric-box">
+                        <div class="hud-metric-value">565 <span style="font-size: 1rem;">km/h</span></div>
+                        <div class="hud-metric-label">สถิติความเร็วตบสูงสุด (Satwiksairaj R.)</div>
+                    </div>
+                    <div class="hud-metric-box">
+                        <div class="hud-metric-value">21 <span style="font-size: 1rem;">PTS</span></div>
+                        <div class="hud-metric-label">ระบบคะแนน BWF Rally Point Standard</div>
+                    </div>
+                    <div class="hud-metric-box">
+                        <div class="hud-metric-value">16 <span style="font-size: 1rem;">FEATHERS</span></div>
+                        <div class="hud-metric-label">จำนวนขนเป็ด/ห่านในลูกขนไก่มาตรฐาน</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="cyber-panel">
+                    <img src="https://images.unsplash.com/photo-1626225967045-9440882269db?auto=format&fit=crop&w=800&q=80" alt="Badminton Action" class="cyber-img">
+                    <h3 style="color: var(--neon-cyan); margin-bottom: 0.5rem;">ระบบนิเวศน์ทางกีฬาระดับสากล</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6;">
+                        แบดมินตันเป็นกีฬาแร็กเก็ตที่รวดเร็วที่สุดในโลก ต้องใช้อัตราปฏิกิริยาตอบสนองระดับมิลลิวินาที พลังกล้ามเนื้อ และชีวกลศาสตร์ที่สมบูรณ์แบบ แพลตฟอร์มนี้รวบรวมวิทยาศาสตร์กีฬาและข้อมูลวิจัยทางการเพื่อการศึกษา
+                    </p>
+                </div>
+                <div class="cyber-panel">
+                    <h3 style="color: var(--neon-gold); margin-bottom: 1rem;">จำลองวิถีความเร็วการตบ (Smash Speed Simulator)</h3>
+                    <div class="config-controls">
+                        <div class="control-group">
+                            <label>ความแรงการแรงตบ (Power Output %): <span id="powerVal">85</span>%</label>
+                            <input type="range" class="cyber-range" min="50" max="100" value="85" id="powerInput" oninput="calculateSpeed()">
+                        </div>
+                        <div class="control-group">
+                            <label>ชนิดไม้ (Racket Type):</label>
+                            <select class="cyber-select" id="racketType" onchange="calculateSpeed()">
+                                <option value="1.0">Head Light (เน้นความไว)</option>
+                                <option value="1.08">Head Heavy (เน้นพลังตบ)</option>
+                            </select>
+                        </div>
+                        <div class="hud-metric-box" style="margin-top: 1rem;">
+                            <div class="hud-metric-value" id="calculatedSpeed" style="color: var(--neon-pink);">395.2 km/h</div>
+                            <div class="hud-metric-label">ความเร็วลูกหลุดจากหน้าไม้โดยประมาณ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: HISTORY -->
+        <section id="history" class="view-panel">
+            <div class="cyber-panel">
+                <h2 class="panel-title">ลำดับเวลาและวิวัฒนาการ (Historical Timeline Matrix)</h2>
+                <div class="timeline-matrix">
+                    <div class="timeline-item">
+                        <div class="timeline-year">ทศวรรษที่ 1870</div>
+                        <h4 style="color:#fff;">การเล่น "Poona" ในอินเดีย</h4>
+                        <p style="color: var(--text-muted);">ทหารอังกฤษกะประจำเป็นการเล่นดัดแปลงโดยกั้นตาข่ายกลางสนาม ณ เมืองปูเน่ ประเทศอินเดีย</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">ค.ศ. 1873</div>
+                        <h4 style="color:#fff;">กำเนิดชื่อ "Badminton"</h4>
+                        <p style="color: var(--text-muted);">ดยุกแห่งโบฟอร์ตนำเกมนี้ไปเล่นที่คฤหาสน์ Badminton House ในอังกฤษ จนกลายเป็นชื่อเรียกสากล</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">ค.ศ. 1934</div>
+                        <h4 style="color:#fff;">การจัดตั้ง IBF (ต่อมาคือ BWF)</h4>
+                        <p style="color: var(--text-muted);">ก่อตั้งสหพันธ์แบดมินตันระหว่างประเทศ เพื่อบริหารและกำหนดกติกาสากล</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">ค.ศ. 1992</div>
+                        <h4 style="color:#fff;">เข้าสู่กีฬาโอลิมปิกอย่างเป็นทางการ</h4>
+                        <p style="color: var(--text-muted);">บรรจุเข้าแข่งขันในบาร์เซโลนาเกมส์ 1992 ชิงเหรียญทองประเภทเดี่ยวและคู่</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: RULES & COURT -->
+        <section id="rules" class="view-panel">
+            <div class="cyber-panel">
+                <h2 class="panel-title">ผังสนามและกติกาการแข่งขัน (Interactive Court HUD)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">คลิกที่จุด Hotspot บนสนามเพื่อดูข้อมูลกฎและมิติพื้นที่:</p>
+
+                <div class="court-diagram">
+                    <div class="court-net"></div>
+                    <button class="court-hotspot" style="top: 20px; left: 20px;" onclick="showCourtInfo('เส้นหลังประเภทเดี่ยว/คู่: ความยาวสนามรวม 13.40 เมตร')">BACK BOUNDARY</button>
+                    <button class="court-hotspot" style="top: 130px; left: 35%;" onclick="showCourtInfo('เส้นเสิร์ฟสั้น: ต้องส่งลูกข้ามเส้นนี้จึงถือเป็นลูกดี')">SHORT SERVICE LINE</button>
+                    <button class="court-hotspot" style="top: 220px; right: 20px;" onclick="showCourtInfo('เส้นข้างประเภทคู่: ความกว้างสนามรวม 6.10 เมตร')">DOUBLES SIDE LINE</button>
+                </div>
+
+                <div id="courtInfoDisplay" class="hud-metric-box" style="text-align: left; background: rgba(255, 230, 0, 0.05); border-color: var(--neon-gold);">
+                    <h4 style="color: var(--neon-gold);">ข้อมูลจุดสนาม:</h4>
+                    <p id="courtInfoText" style="color: #fff; margin-top: 5px;">คลิกจุดใดก็ได้บนผังสนามด้านบนเพื่อตรวจสอบรายละเอียด</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: EQUIPMENT LAB -->
+        <section id="equipment" class="view-panel">
+            <div class="cyber-panel">
+                <h2 class="panel-title">วิศวกรรมอุปกรณ์ (Equipment Customizer Lab)</h2>
+                <div class="grid-2">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1521537634581-0dced2efa2a3?auto=format&fit=crop&w=800&q=80" alt="Racket & Shuttlecock" class="cyber-img">
+                        <h3 style="color: var(--neon-cyan);">วิเคราะห์แรงดันเอ็นและน้ำหนักไม้</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem;">
+                            การปรับแต่งไม้แบดมินตันส่งผลโดยตรงต่อการส่งผ่านพลังงาน (Energy Transfer) และความแม่นยำในการควบคุมลูก
+                        </p>
+                    </div>
+                    <div class="config-controls">
+                        <div class="control-group">
+                            <label>น้ำหนักไม้ (Weight Class):</label>
+                            <select class="cyber-select" id="labWeight">
+                                <option value="3U (85-89g)">3U (85-89g) - มวลเยอะ พลังตบสูง</option>
+                                <option value="4U (80-84g)" selected>4U (80-84g) - สมดุลมาตรฐาน</option>
+                                <option value="5U (75-79g)">5U (75-79g) - น้ำหนักเบา หน้าไม้ไว</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label>แรงดันเอ็น (String Tension): <span id="tensionVal">26</span> lbs</label>
+                            <input type="range" class="cyber-range" min="20" max="32" value="26" id="labTension" oninput="updateLabInfo()">
+                        </div>
+                        <button class="btn-cyber" onclick="analyzeRacket()">ประมวลผลคุณสมบัติไม้</button>
+                        
+                        <div id="labResult" class="hud-metric-box" style="display:none; text-align:left;">
+                            <h4 style="color:var(--neon-cyan);" id="labResultTitle">ผลการวิเคราะห์:</h4>
+                            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;" id="labResultDesc"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: PHYSICS & TACTICS -->
+        <section id="physics" class="view-panel">
+            <div class="cyber-panel">
+                <h2 class="panel-title">ฟิสิกส์การเคลื่อนที่ & กลยุทธ์ (Biomechanics & Physics)</h2>
+                <div class="grid-2">
+                    <div class="hud-metric-box" style="text-align:left;">
+                        <h3 style="color: var(--neon-pink); margin-bottom: 0.8rem;">แรงต้านอากาศ (Aerodynamic Drag Effect)</h3>
+                        <p style="color: var(--text-muted); line-height: 1.6;">
+                            ลูกขนไก่มีสัมประสิทธิ์แรงต้านอากาศ (Drag Coefficient) สูงมาก เมื่อถูกตบด้วยความเร็ว 400+ กม./ชม. ความเร็วจะลดลงเหลือเพียงไม่ถึง 100 กม./ชม. เมื่อถึงแดนหลังฝ่ายตรงข้าม ทำให้ผู้เล่นมีเวลาในการตัดสินใจรับลูก
+                        </p>
+                    </div>
+                    <div class="hud-metric-box" style="text-align:left;">
+                        <h3 style="color: var(--neon-cyan); margin-bottom: 0.8rem;">กลยุทธ์การเล่นประเภทคู่ vs เดี่ยว</h3>
+                        <p style="color: var(--text-muted); line-height: 1.6;">
+                            • <strong>ประเภทคู่:</strong> เน้นการเข้าทำแบบกดลูกขนานตาข่าย (Drive) และการเข้าทำโซนหน้าไม้<br>
+                            • <strong>ประเภทเดี่ยว:</strong> เน้นการกระจายลูกไปยังมุมสนามทั้ง 4 ด้าน เพื่อสร้างพื้นที่ว่างและลดพลังงานคู่แข่ง
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 6: QUIZ & REFERENCES -->
+        <section id="quiz" class="view-panel">
+            <div class="cyber-panel">
+                <h2 class="panel-title">ทดสอบความรู้แบบโต้ตอบ (Cyber Quiz Module)</h2>
+                <div id="quizBox">
+                    <h3 style="color: var(--neon-gold); margin-bottom: 1rem;" id="quizQuestion">1. กีฬาแบดมินตันมีต้นกำเนิดดั้งเดิมมาจากเกมใดในประเทศอินเดีย?</h3>
+                    <button class="quiz-option" onclick="answerQuiz(false)">A. Battledore</button>
+                    <button class="quiz-option" onclick="answerQuiz(true)">B. Poona</button>
+                    <button class="quiz-option" onclick="answerQuiz(false)">C. Hanetsuki</button>
+                </div>
+                <div id="quizResult" style="display:none; text-align:center;" class="hud-metric-box">
+                    <h3 style="color:var(--neon-cyan);">คุณทำแบบทดสอบเสร็จสิ้น!</h3>
+                    <p style="color:#fff; margin-top:10px;">คะแนนของคุณ: <span id="quizScore" style="color:var(--neon-gold); font-weight:bold;">1</span> / 1</p>
+                    <button class="btn-cyber" style="margin-top:15px;" onclick="resetQuiz()">ทำแบบทดสอบอีกครั้ง</button>
+                </div>
+            </div>
+
+            <div class="cyber-panel">
+                <h2 class="panel-title">แหล่งอ้างอิงอัจฉริยะ (Academic References Index)</h2>
+                <ul style="color: var(--text-muted); line-height: 2; padding-left: 1.2rem;">
+                    <li>[1] <strong>Badminton World Federation (BWF):</strong> Official Statutes & Laws of Badminton. Web: <a href="https://bwfbadminton.com" target="_blank" style="color:var(--neon-cyan);">bwfbadminton.com</a></li>
+                    <li>[2] <strong>Guinness World Records (2023):</strong> World's Fastest Badminton Smash (565 km/h by Satwiksairaj Rankireddy).</li>
+                    <li>[3] <strong>International Olympic Committee (IOC):</strong> Badminton History & Olympic Rules Standard.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>BADMINTON CYBER-NEXUS 2099 © SCIENCE & ACADEMIC KNOWLEDGE SYSTEM | DEVELOPED FOR GITHUB PAGES</p>
+    </footer>
+
+    <!-- JAVASCRIPT SYSTEM LOGIC -->
+    <script>
+        // SPA TAB SWITCHING SYSTEM
+        function switchTab(tabId) {
+            const panels = document.querySelectorAll('.view-panel');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            panels.forEach(panel => panel.classList.remove('active'));
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            const targetPanel = document.getElementById(tabId);
+            if(targetPanel) targetPanel.classList.add('active');
+
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('navMenu').classList.remove('open');
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('navMenu').classList.toggle('open');
+        }
+
+        // SIMULATOR CALCULATOR
+        function calculateSpeed() {
+            const power = parseFloat(document.getElementById('powerInput').value);
+            const multiplier = parseFloat(document.getElementById('racketType').value);
+            document.getElementById('powerVal').innerText = power;
+
+            // Base top speed formula
+            const baseSpeed = 420; 
+            const calculated = ((power / 100) * baseSpeed * multiplier).toFixed(1);
+            
+            document.getElementById('calculatedSpeed').innerText = calculated + " km/h";
+        }
+
+        // COURT HOTSPOT INTERACTION
+        function showCourtInfo(infoText) {
+            document.getElementById('courtInfoText').innerText = infoText;
+        }
+
+        // EQUIPMENT LAB LOGIC
+        function updateLabInfo() {
+            const tension = document.getElementById('labTension').value;
+            document.getElementById('tensionVal').innerText = tension;
+        }
+
+        function analyzeRacket() {
+            const weight = document.getElementById('labWeight').value;
+            const tension = document.getElementById('labTension').value;
+            const resBox = document.getElementById('labResult');
+            const desc = document.getElementById('labResultDesc');
+
+            resBox.style.display = 'block';
+            desc.innerHTML = `คุณเลือกสเปกไม้ <strong>${weight}</strong> ด้วยแรงดันเอ็น <strong>${tension} lbs</strong>.<br>`;
+
+            if (parseInt(tension) >= 28) {
+                desc.innerHTML += "• <u>สายแข่งขันมืออาชีพ:</u> การตึงเอ็นระดับสูงตต้องการจุดกระทบ Sweet Spot ที่แม่นยำมากเพื่อสร้างแรงส่งสูงสุด";
+            } else {
+                desc.innerHTML += "• <u>สายเล่นทั่วไป/ควบคุมง่าย:</u> เอ็นยืดหยุ่นดี ช่วยผ่อนแรงตบ และมี Sweet Spot กว้างขึ้น";
+            }
+        }
+
+        // QUIZ SYSTEM LOGIC
+        function answerQuiz(isCorrect) {
+            document.getElementById('quizBox').style.display = 'none';
+            document.getElementById('quizResult').style.display = 'block';
+            document.getElementById('quizScore').innerText = isCorrect ? "1" : "0";
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizBox').style.display = 'block';
+            document.getElementById('quizResult').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
